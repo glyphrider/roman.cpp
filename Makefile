@@ -1,5 +1,5 @@
 OBJS=test.o roman.o gtest-all.o
-GTEST=../../../gtest-1.6.0
+GTEST_ROOT ?= ../../../gtest-1.6.0
 
 run : test
 	./test
@@ -7,11 +7,11 @@ run : test
 test : $(OBJS)
 	g++ -pthread -o $@ $^
 
-gtest-all.o : $(GTEST)/src/gtest-all.cc
-	g++ -I$(GTEST) -I$(GTEST)/include -c -o $@ $<
+gtest-all.o : $(GTEST_ROOT)/src/gtest-all.cc
+	g++ -I$(GTEST_ROOT) -I$(GTEST_ROOT)/include -c -o $@ $<
 
 %.o : %.cc
-	g++ -I$(GTEST)/include -c -o $@ $<
+	g++ -I$(GTEST_ROOT)/include -c -o $@ $<
 
 clean :
 	rm -f test $(OBJS)
