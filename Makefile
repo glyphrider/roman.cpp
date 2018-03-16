@@ -1,10 +1,10 @@
 OBJS=test.o roman.o gtest-all.o
 GTEST_DIR ?= ./gtest
 
-test : link
+run-tests : test
 	./test
 
-link : $(OBJS)
+test : $(OBJS)
 	g++ -pthread -o $@ $^
 
 gtest-all.o : $(GTEST_DIR)/src/gtest-all.cc
