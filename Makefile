@@ -1,17 +1,17 @@
 OBJS=test.o roman.o gtest-all.o
-GTEST_ROOT ?= ../../../gtest-1.6.0
+GTEST_DIR ?= ./gtest
 
-run : test
+test : link
 	./test
 
-test : $(OBJS)
+link : $(OBJS)
 	g++ -pthread -o $@ $^
 
-gtest-all.o : $(GTEST_ROOT)/src/gtest-all.cc
-	g++ -I$(GTEST_ROOT) -I$(GTEST_ROOT)/include -c -o $@ $<
+gtest-all.o : $(GTEST_DIR)/src/gtest-all.cc
+	g++ -I$(GTEST_DIR) -I$(GTEST_DIR)/include -c -o $@ $<
 
 %.o : %.cc
-	g++ -I$(GTEST_ROOT)/include -c -o $@ $<
+	g++ -I$(GTEST_DIR)/include -c -o $@ $<
 
 clean :
 	rm -f test $(OBJS)
