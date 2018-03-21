@@ -1,20 +1,19 @@
 pipeline {
-  agent { label 'docker-enabled' }
+  agent {
+    docker {
+      image 'library/gcc:latest'
+    }
+  }
 
   stages {
-    stage('Submodule') {
-      steps {
-        sh 'git submodule update --init --recursive'
-      }
-    }
     stage('Build') {
       steps {
-        sh 'docker run --rm -v /etc/passwd:/etc/passwd -v /etc/group:/etc/group --user $(id -u):$(id -g) --volumes-from=$(hostname) -w "${WORKSPACE}" library/gcc make test'
+        sh 'make test'
       }
     }
     stage('Test') {
       steps {
-        sh 'docker run --rm -v /etc/passwd:/etc/passwd -v /etc/group:/etc/group --user $(id -u):$(id -g) --volumes-from=$(hostname) -w "${WORKSPACE}" library/gcc make run-tests'
+        sh 'make run-tests'
       }
     }
   }
