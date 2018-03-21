@@ -6,6 +6,11 @@ pipeline {
   }
 
   stages {
+    stage('Submodule') {
+      steps {
+        sh 'git submodule update --init --recursive'
+      }
+    }
     stage('Build') {
       steps {
         sh 'make test'
