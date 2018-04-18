@@ -1,5 +1,5 @@
 OBJS=test.o roman.o gtest-all.o
-GTEST_DIR ?= ./gtest
+GTEST_DIR ?= ./googletest/googletest
 
 run-tests : test
 	./test
