@@ -1,4 +1,3 @@
-CXX ?= g++
 OBJS=test.o roman.o gtest-all.o
 GTEST_DIR ?= ./googletest/googletest
 
