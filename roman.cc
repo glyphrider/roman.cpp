@@ -25,15 +25,17 @@ Roman::~Roman()
 
 std::string Roman::to_roman(int n, std::string s)
 {
-  for(auto e:_table)
-    if(n >= e.first) return to_roman(n-e.first,s+e.second);
+  for(auto t:_table)
+    if(n >= t.first)
+      return to_roman(n-t.first,s+t.second);
   return s;
 }
 
 int Roman::from_roman(std::string s, int n)
 {
-  for(auto e:_table)
-    if(0 == s.compare(0,e.second.size(),e.second)) return from_roman(s.substr(e.second.size()),n+e.first);
+  for(auto t:_table)
+    if(0 == s.compare(0,t.second.size(),t.second))
+      return from_roman(s.substr(t.second.size()),n+t.first);
   return n;
 }
 
