@@ -7,6 +7,12 @@ public:
   Roman r;
 };
 
+class FromRoman : public testing::Test
+{
+public:
+  Roman r;
+};
+
 TEST_F(ToRoman,ConvertOne)
 {
   ASSERT_EQ("I",r.to_s(1));
@@ -76,6 +82,78 @@ TEST_F(ToRoman,ConvertNineteenSixtyEight)
   ASSERT_EQ("MCMLXVIII",r.to_s(1968));
 }
 
+TEST_F(FromRoman,ConvertEmptyString)
+{
+  ASSERT_EQ(0,r.to_i(""));
+}
+TEST_F(FromRoman,ConvertOne)
+{
+  ASSERT_EQ(1,r.to_i("I"));
+}
+TEST_F(FromRoman,ConvertTwo)
+{
+  ASSERT_EQ(2,r.to_i("II"));
+}
+TEST_F(FromRoman,ConvertThree)
+{
+  ASSERT_EQ(3,r.to_i("III"));
+}
+TEST_F(FromRoman,ConvertFour)
+{
+  ASSERT_EQ(4,r.to_i("IV"));
+}
+TEST_F(FromRoman,ConvertFive)
+{
+  ASSERT_EQ(5,r.to_i("V"));
+}
+TEST_F(FromRoman,ConvertSix)
+{
+  ASSERT_EQ(6,r.to_i("VI"));
+}
+TEST_F(FromRoman,ConvertNine)
+{
+  ASSERT_EQ(9,r.to_i("IX"));
+}
+TEST_F(FromRoman,ConvertTen)
+{
+  ASSERT_EQ(10,r.to_i("X"));
+}
+TEST_F(FromRoman,ConvertForty)
+{
+  ASSERT_EQ(40,r.to_i("XL"));
+}
+TEST_F(FromRoman,ConvertFifty)
+{
+  ASSERT_EQ(50,r.to_i("L"));
+}
+TEST_F(FromRoman,ConvertNinety)
+{
+  ASSERT_EQ(90,r.to_i("XC"));
+}
+TEST_F(FromRoman,ConvertHundred)
+{
+  ASSERT_EQ(100,r.to_i("C"));
+}
+TEST_F(FromRoman,ConvertFiveHundred)
+{
+  ASSERT_EQ(500,r.to_i("D"));
+}
+TEST_F(FromRoman,ConvertFourHundred)
+{
+  ASSERT_EQ(400,r.to_i("CD"));
+}
+TEST_F(FromRoman,ConvertThousand)
+{
+  ASSERT_EQ(1000,r.to_i("M"));
+}
+TEST_F(FromRoman,ConvertNineHundred)
+{
+  ASSERT_EQ(900,r.to_i("CM"));
+}
+TEST_F(FromRoman,ConvertNineteenSixtyEight)
+{
+  ASSERT_EQ(1968,r.to_i("MCMLXVIII"));
+}
 
 
 int main(int argc, char **argv) {
