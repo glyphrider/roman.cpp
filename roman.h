@@ -1,3 +1,6 @@
+#ifndef _roman_h_
+#define _roman_h_
+
 #include <list>
 #include <string>
 
@@ -13,3 +16,5 @@ protected:
   int from_roman(std::string s, int n);
 
 };
+
+#endif
