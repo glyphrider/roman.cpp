@@ -150,9 +150,9 @@ TEST_F(FromRoman,ConvertNineHundred)
 {
   ASSERT_EQ(900,r.to_i("CM"));
 }
-TEST_F(FromRoman,ConvertNineteenSixtyEight)
+TEST_F(FromRoman,ConvertRobotronTwentyEightyFour)
 {
-  ASSERT_EQ(1968,r.to_i("MCMLXVIII"));
+  ASSERT_EQ(2084,r.to_i("MMLXXXIV"));
 }
 
 
