@@ -1,22 +1,20 @@
 #include "roman.h"
 
-#define TABLE_ENTRY(N,S) _table.push_back(Table::value_type(N,S))
-
 Roman::Roman()
 {
-  TABLE_ENTRY(1000,"M");
-  TABLE_ENTRY(900,"CM");
-  TABLE_ENTRY(500,"D");
-  TABLE_ENTRY(400,"CD");
-  TABLE_ENTRY(100,"C");
-  TABLE_ENTRY(90,"XC");
-  TABLE_ENTRY(50,"L");
-  TABLE_ENTRY(40,"XL");
-  TABLE_ENTRY(10,"X");
-  TABLE_ENTRY(9,"IX");
-  TABLE_ENTRY(5,"V");
-  TABLE_ENTRY(4,"IV");
-  TABLE_ENTRY(1,"I");
+  _table.push_back(Table::value_type(1000,"M"));
+  _table.push_back(Table::value_type(900,"CM"));
+  _table.push_back(Table::value_type(500,"D"));
+  _table.push_back(Table::value_type(400,"CD"));
+  _table.push_back(Table::value_type(100,"C"));
+  _table.push_back(Table::value_type(90,"XC"));
+  _table.push_back(Table::value_type(50,"L"));
+  _table.push_back(Table::value_type(40,"XL"));
+  _table.push_back(Table::value_type(10,"X"));
+  _table.push_back(Table::value_type(9,"IX"));
+  _table.push_back(Table::value_type(5,"V"));
+  _table.push_back(Table::value_type(4,"IV"));
+  _table.push_back(Table::value_type(1,"I"));
 }
 
 Roman::~Roman()
