@@ -1,5 +1,5 @@
 OBJS=test.o roman.o gtest-all.o
-GTEST_DIR ?= ./googletest/googletest
+GOOGLETEST ?= ./googletest/googletest
 
 run-tests : test
 	./test
@@ -7,11 +7,11 @@ run-tests : test
 test : $(OBJS)
 	$(CXX) $(CXXFLAGS) -pthread -o $@ $^
 
-gtest-all.o : $(GTEST_DIR)/src/gtest-all.cc
-	$(CXX) $(CXXFLAGS) -I$(GTEST_DIR) -I$(GTEST_DIR)/include -c -o $@ $<
+gtest-all.o : $(GOOGLETEST)/src/gtest-all.cc
+	$(CXX) $(CXXFLAGS) -I$(GOOGLETEST) -I$(GOOGLETEST)/include -c -o $@ $<
 
 %.o : %.cc
-	$(CXX) $(CXXFLAGS) -I$(GTEST_DIR)/include -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -I$(GOOGLETEST)/include -c -o $@ $<
 
 clean :
 	rm -f test $(OBJS)
