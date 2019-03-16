@@ -2,19 +2,19 @@
 
 Roman::Roman()
 {
-  _table.push_back(Table::value_type(1000,"M"));
-  _table.push_back(Table::value_type(900,"CM"));
-  _table.push_back(Table::value_type(500,"D"));
-  _table.push_back(Table::value_type(400,"CD"));
-  _table.push_back(Table::value_type(100,"C"));
-  _table.push_back(Table::value_type(90,"XC"));
-  _table.push_back(Table::value_type(50,"L"));
-  _table.push_back(Table::value_type(40,"XL"));
-  _table.push_back(Table::value_type(10,"X"));
-  _table.push_back(Table::value_type(9,"IX"));
-  _table.push_back(Table::value_type(5,"V"));
-  _table.push_back(Table::value_type(4,"IV"));
-  _table.push_back(Table::value_type(1,"I"));
+  _table.push_back(Mapping(1000,"M"));
+  _table.push_back(Mapping(900,"CM"));
+  _table.push_back(Mapping(500,"D"));
+  _table.push_back(Mapping(400,"CD"));
+  _table.push_back(Mapping(100,"C"));
+  _table.push_back(Mapping(90,"XC"));
+  _table.push_back(Mapping(50,"L"));
+  _table.push_back(Mapping(40,"XL"));
+  _table.push_back(Mapping(10,"X"));
+  _table.push_back(Mapping(9,"IX"));
+  _table.push_back(Mapping(5,"V"));
+  _table.push_back(Mapping(4,"IV"));
+  _table.push_back(Mapping(1,"I"));
 }
 
 Roman::~Roman()

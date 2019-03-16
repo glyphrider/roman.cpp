@@ -10,7 +10,8 @@ public:
   virtual ~Roman();
   std::string to_s(int n);
   int to_i(std::string s);
-  typedef std::list<std::pair<int,std::string>> Table;
+  typedef std::pair<int,std::string> Mapping;
+  typedef std::list<Mapping> Table;
 protected:
   Table _table;
   // std::list<std::pair<int,std::string>> _table;
