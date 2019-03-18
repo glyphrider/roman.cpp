@@ -1,27 +1,48 @@
 #include "roman.h"
 
-#define ADD_ELEMENT(N,S,T,E) \
-  if(N >= T) return to_roman(N-T,S+E);
+Roman::Roman()
+{
+  _table.push_back(Mapping(1000,"M"));
+  _table.push_back(Mapping(900,"CM"));
+  _table.push_back(Mapping(500,"D"));
+  _table.push_back(Mapping(400,"CD"));
+  _table.push_back(Mapping(100,"C"));
+  _table.push_back(Mapping(90,"XC"));
+  _table.push_back(Mapping(50,"L"));
+  _table.push_back(Mapping(40,"XL"));
+  _table.push_back(Mapping(10,"X"));
+  _table.push_back(Mapping(9,"IX"));
+  _table.push_back(Mapping(5,"V"));
+  _table.push_back(Mapping(4,"IV"));
+  _table.push_back(Mapping(1,"I"));
+}
+
+Roman::~Roman()
+{
+}
 
 std::string Roman::to_roman(int n, std::string s)
 {
-  ADD_ELEMENT(n,s,1000,"M");
-  ADD_ELEMENT(n,s,900,"CM");
-  ADD_ELEMENT(n,s,500,"D");
-  ADD_ELEMENT(n,s,400,"CD");
-  ADD_ELEMENT(n,s,100,"C");
-  ADD_ELEMENT(n,s,90,"XC");
-  ADD_ELEMENT(n,s,50,"L");
-  ADD_ELEMENT(n,s,40,"XL");
-  ADD_ELEMENT(n,s,10,"X");
-  ADD_ELEMENT(n,s,9,"IX");
-  ADD_ELEMENT(n,s,5,"V");
-  ADD_ELEMENT(n,s,4,"IV");
-  ADD_ELEMENT(n,s,1,"I");
+  for(auto t:_table)
+    if(n >= t.first)
+      return to_roman(n-t.first,s+t.second);
   return s;
+}
+
+int Roman::from_roman(std::string s, int n)
+{
+  for(auto t:_table)
+    if(0 == s.compare(0,t.second.size(),t.second))
+      return from_roman(s.substr(t.second.size()),n+t.first);
+  return n;
 }
 
 std::string Roman::to_s(int n)
 {
   return to_roman(n,"");
+}
+
+int Roman::to_i(std::string s)
+{
+  return from_roman(s,0);
 }
