@@ -20,3 +20,12 @@ If you don't want to use the submodule googletest, for whatever reason, you can 
 GOOGLETEST=../googletest/googletest make
 ```
 
+## Building the New Way (cmake)
+
+```sh
+mkdir build
+cd build
+cmake ..
+cmake --build .
+ctest
+```
