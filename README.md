@@ -1,5 +1,7 @@
 # Roman Numerals
 
+[![Build Status](https://travis-ci.org/glyphrider/roman.cpp.svg?branch=master)](https://travis-ci.org/glyphrider/roman.cpp)
+
 ## Building
 
 In general....
