@@ -1,6 +1,18 @@
 #include "roman.h"
 
-Roman::Translation Roman::_table;
+Roman::Mapping::Mapping(int n, std::string s) : Roman::StdMapping(n,s)
+{
+}
+
+bool Roman::Mapping::should_recurse(int n)
+{
+	return n >= first;
+}
+
+bool Roman::Mapping::should_recurse(std::string s)
+{
+	return 0 == s.compare(0,second.size(),second);
+}
 
 Roman::Translation::Translation()
 {
@@ -19,6 +31,8 @@ Roman::Translation::Translation()
   push_back(Mapping(1,"I"));
 }
 
+const Roman::Translation Roman::_table;
+
 Roman::Roman()
 {
 }
@@ -29,16 +43,16 @@ Roman::~Roman()
 
 std::string Roman::to_roman(int n, std::string s)
 {
-  for(auto t:Roman::_table)
-    if(n >= t.first)
+  for(auto t:_table)
+		if(t.should_recurse(n))
       return to_roman(n-t.first,s+t.second);
   return s;
 }
 
 int Roman::from_roman(std::string s, int n)
 {
-  for(auto t:Roman::_table)
-    if(0 == s.compare(0,t.second.size(),t.second))
+  for(auto t:_table)
+		if(t.should_recurse(s))
       return from_roman(s.substr(t.second.size()),n+t.first);
   return n;
 }

@@ -11,13 +11,19 @@ public:
   std::string to_s(int n);
   int to_i(std::string s);
 protected:
-  typedef std::pair<int,std::string> Mapping;
+  typedef std::pair<int,std::string> StdMapping;
+	class Mapping : public StdMapping {
+	public:
+		Mapping(int n, std::string s);
+		bool should_recurse(int n);
+		bool should_recurse(std::string s);
+	};
   typedef std::list<Mapping> Table;
   class Translation : public Table {
   public:
 		Translation();
 	};
-  static Translation _table;
+  static const Translation _table;
   std::string to_roman(int n, std::string s);
   int from_roman(std::string s, int n);
 };
