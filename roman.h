@@ -13,14 +13,14 @@ public:
 protected:
   using StdMapping = std::pair<int,std::string>;
 	class Mapping : public StdMapping {
-	public:
+		public:
 		Mapping(int n, const std::string& s);
 		bool should_recurse(int n) const;
 		bool should_recurse(const std::string& s) const;
 	};
   using Table = std::list<Mapping>;
   class Translation : public Table {
-  public:
+		public:
 		Translation();
 	};
   static const Translation _table;
