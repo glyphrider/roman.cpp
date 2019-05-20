@@ -1,31 +1,31 @@
-#ifndef _roman_h_
-#define _roman_h_
+#ifndef __roman_h__
+#define __roman_h__
 
 #include <list>
 #include <string>
 
 class Roman {
 public:
-  Roman();
-  virtual ~Roman();
-  std::string to_s(int n);
-  int to_i(std::string s);
+  Roman() = default;
+  virtual ~Roman() = default;
+  std::string to_s(int n) const;
+  int to_i(const std::string& s) const;
 protected:
-  typedef std::pair<int,std::string> StdMapping;
+  using StdMapping = std::pair<int,std::string>;
 	class Mapping : public StdMapping {
 	public:
-		Mapping(int n, std::string s);
-		bool should_recurse(int n);
-		bool should_recurse(std::string s);
+		Mapping(int n, const std::string& s);
+		bool should_recurse(int n) const;
+		bool should_recurse(const std::string& s) const;
 	};
-  typedef std::list<Mapping> Table;
+  using Table = std::list<Mapping>;
   class Translation : public Table {
   public:
 		Translation();
 	};
   static const Translation _table;
-  std::string to_roman(int n, std::string s);
-  int from_roman(std::string s, int n);
+  std::string to_roman(int n, const std::string& s) const;
+  int from_roman(const std::string& s, int n) const;
 };
 
 #endif

@@ -1,15 +1,15 @@
 #include "roman.h"
 
-Roman::Mapping::Mapping(int n, std::string s) : Roman::StdMapping(n,s)
+Roman::Mapping::Mapping(int n, const std::string& s) : Roman::StdMapping(n,s)
 {
 }
 
-bool Roman::Mapping::should_recurse(int n)
+bool Roman::Mapping::should_recurse(int n) const
 {
 	return n >= first;
 }
 
-bool Roman::Mapping::should_recurse(std::string s)
+bool Roman::Mapping::should_recurse(const std::string& s) const
 {
 	return 0 == s.compare(0,second.size(),second);
 }
@@ -33,36 +33,36 @@ Roman::Translation::Translation()
 
 const Roman::Translation Roman::_table;
 
-Roman::Roman()
+std::string Roman::to_roman(int n, const std::string& s) const
 {
-}
-
-Roman::~Roman()
-{
-}
-
-std::string Roman::to_roman(int n, std::string s)
-{
-  for(auto t:_table)
+  for(const auto& t:_table)
+	{
 		if(t.should_recurse(n))
+		{
       return to_roman(n-t.first,s+t.second);
+		}
+	}
   return s;
 }
 
-int Roman::from_roman(std::string s, int n)
+int Roman::from_roman(const std::string& s, int n) const
 {
-  for(auto t:_table)
+  for(const auto& t:_table)
+	{
 		if(t.should_recurse(s))
+		{
       return from_roman(s.substr(t.second.size()),n+t.first);
+		}
+	}
   return n;
 }
 
-std::string Roman::to_s(int n)
+std::string Roman::to_s(int n) const
 {
   return to_roman(n,"");
 }
 
-int Roman::to_i(std::string s)
+int Roman::to_i(const std::string& s) const
 {
   return from_roman(s,0);
 }
