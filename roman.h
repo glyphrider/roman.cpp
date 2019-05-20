@@ -19,11 +19,7 @@ protected:
 		bool should_recurse(const std::string& s) const;
 	};
   using Table = std::list<Mapping>;
-  class Translation : public Table {
-		public:
-		Translation();
-	};
-  static const Translation _table;
+  static const Table _table;
   std::string to_roman(int n, const std::string& s) const;
   int from_roman(const std::string& s, int n) const;
 };
