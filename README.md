@@ -2,7 +2,28 @@
 
 [![Build Status](https://travis-ci.org/glyphrider/roman.cpp.svg?branch=master)](https://travis-ci.org/glyphrider/roman.cpp)
 
-## Building
+## Before Building
+
+If you didn't do a recursive clone of the repo, you'll want to be sure to grab the googletest submodule.
+
+```sh
+git submodule init
+git submodule update
+```
+
+## Building the New Way (cmake)
+
+```sh
+mkdir build
+cd build
+cmake ..
+make
+ctest
+```
+
+## Building the old way (static Makefile)
+
+There is still a static make file that works with `g++` or, with some coaxing, `clang++`.
 
 In general....
 
@@ -20,14 +41,4 @@ If you don't want to use the submodule googletest, for whatever reason, you can 
 
 ```sh
 GOOGLETEST=../googletest/googletest make
-```
-
-## Building the New Way (cmake)
-
-```sh
-mkdir build
-cd build
-cmake ..
-cmake --build .
-ctest
 ```
