@@ -20,7 +20,6 @@ protected:
   static Translation _table;
   std::string to_roman(int n, std::string s);
   int from_roman(std::string s, int n);
-
 };
 
 #endif
