@@ -14,7 +14,7 @@ bool Roman::Mapping::should_recurse(const std::string& s) const
 	return 0 == s.compare(0,second.size(),second);
 }
 
-const Roman::Table& Roman::_table()
+const Roman::Table& Roman::table() const
 {
 	static Roman::Table _static = 
 	{
@@ -37,7 +37,7 @@ const Roman::Table& Roman::_table()
 
 std::string Roman::to_roman(int n, const std::string& s) const
 {
-  for(const Mapping& t:_table())
+  for(const Mapping& t:table())
 	{
 		if(t.should_recurse(n))
 		{
@@ -49,7 +49,7 @@ std::string Roman::to_roman(int n, const std::string& s) const
 
 int Roman::from_roman(const std::string& s, int n) const
 {
-  for(const Mapping& t:_table())
+  for(const Mapping& t:table())
 	{
 		if(t.should_recurse(s))
 		{
