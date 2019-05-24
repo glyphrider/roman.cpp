@@ -37,7 +37,7 @@ const Roman::Table& Roman::table() const
 
 std::string Roman::to_roman(int n, const std::string& s) const
 {
-  for(const auto& t:table())
+  for(const Mapping& t:table())
     {
       if(t.should_recurse(n))
 	{
@@ -49,7 +49,7 @@ std::string Roman::to_roman(int n, const std::string& s) const
 
 int Roman::from_roman(const std::string& s, int n) const
 {
-  for(const auto& t:table())
+  for(const Mapping& t:table())
     {
       if(t.should_recurse(s))
 	{

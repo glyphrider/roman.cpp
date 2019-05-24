@@ -5,7 +5,7 @@
 #include <string>
 
 class Roman {
-public:
+ public:
   Roman() = default;
   virtual ~Roman() = default;
   std::string to_s(int n) const;
