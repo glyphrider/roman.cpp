@@ -1,48 +1,70 @@
 #include "roman.h"
 
-Roman::Roman()
-{
-  _table.push_back(Mapping(1000,"M"));
-  _table.push_back(Mapping(900,"CM"));
-  _table.push_back(Mapping(500,"D"));
-  _table.push_back(Mapping(400,"CD"));
-  _table.push_back(Mapping(100,"C"));
-  _table.push_back(Mapping(90,"XC"));
-  _table.push_back(Mapping(50,"L"));
-  _table.push_back(Mapping(40,"XL"));
-  _table.push_back(Mapping(10,"X"));
-  _table.push_back(Mapping(9,"IX"));
-  _table.push_back(Mapping(5,"V"));
-  _table.push_back(Mapping(4,"IV"));
-  _table.push_back(Mapping(1,"I"));
-}
-
-Roman::~Roman()
+Roman::Mapping::Mapping(int n, const std::string& s) : StdPair(n,s)
 {
 }
 
-std::string Roman::to_roman(int n, std::string s)
+bool Roman::Mapping::should_recurse(int n) const
 {
-  for(auto t:_table)
-    if(n >= t.first)
-      return to_roman(n-t.first,s+t.second);
+  return n >= first;
+}
+
+bool Roman::Mapping::should_recurse(const std::string& s) const
+{
+  return 0 == s.compare(0,second.size(),second);
+}
+
+const Roman::Table& Roman::table() const
+{
+  static Roman::Table _static = 
+    {
+     {1000,"M"},
+     {900,"CM"},
+     {500,"D"},
+     {400,"CD"},
+     {100,"C"},
+     {90,"XC"},
+     {50,"L"},
+     {40,"XL"},
+     {10,"X"},
+     {9,"IX"},
+     {5,"V"},
+     {4,"IV"},
+     {1,"I"}
+    };
+  return _static;
+}
+
+std::string Roman::to_roman(int n, const std::string& s) const
+{
+  for(const Mapping& t:table())
+    {
+      if(t.should_recurse(n))
+	{
+	  return to_roman(n-t.first,s+t.second);
+	}
+    }
   return s;
 }
 
-int Roman::from_roman(std::string s, int n)
+int Roman::from_roman(const std::string& s, int n) const
 {
-  for(auto t:_table)
-    if(0 == s.compare(0,t.second.size(),t.second))
-      return from_roman(s.substr(t.second.size()),n+t.first);
+  for(const Mapping& t:table())
+    {
+      if(t.should_recurse(s))
+	{
+	  return from_roman(s.substr(t.second.size()),n+t.first);
+	}
+    }
   return n;
 }
 
-std::string Roman::to_s(int n)
+std::string Roman::to_s(int n) const
 {
   return to_roman(n,"");
 }
 
-int Roman::to_i(std::string s)
+int Roman::to_i(const std::string& s) const
 {
   return from_roman(s,0);
 }
