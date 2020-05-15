@@ -22,6 +22,8 @@ protected:
   const Table& table() const;
   std::string to_roman(int n, const std::string& s) const;
   int from_roman(const std::string& s, int n) const;
+
+  static const char * const empty_string_literal;
 };
 
 #endif

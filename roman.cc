@@ -61,10 +61,12 @@ int Roman::from_roman(const std::string& s, int n) const
 
 std::string Roman::to_s(int n) const
 {
-  return to_roman(n,"");
+  return to_roman(n,empty_string_literal);
 }
 
 int Roman::to_i(const std::string& s) const
 {
   return from_roman(s,0);
 }
+
+const char * const Roman::empty_string_literal = "";
