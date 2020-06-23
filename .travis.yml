@@ -10,8 +10,7 @@ compiler:
 
 addons:
 	apt:
-		packages:
-			- ninja-build
+		packages: ninja-build
 
 script:
   - mkdir -p build
