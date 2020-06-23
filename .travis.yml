@@ -1,8 +1,11 @@
-os: linux
+jobs:
+  include:
+    - os: linux
+      dist: xenial
+    - os: linux
+      dist: bionic
 
 language: cpp
-
-dist: bionic
 
 compiler:
   - clang
