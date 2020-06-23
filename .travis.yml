@@ -5,8 +5,8 @@ dist:
 	- bionic
 
 compiler:
-        - clang
-        - gcc
+  - clang
+  - gcc
 
 addons:
 	apt:
@@ -14,8 +14,8 @@ addons:
 			- ninja-build
 
 script:
-        - mkdir -p build
-        - cd build
-        - cmake -G Ninja ..
-        - cmake --build .
-        - ctest
+  - mkdir -p build
+  - cd build
+  - cmake -G Ninja ..
+  - cmake --build .
+  - ctest
