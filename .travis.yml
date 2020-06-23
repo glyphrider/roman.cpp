@@ -1,12 +1,28 @@
+jobs:
+  include:
+    - os: linux
+      dist: xenial
+      compiler: gcc
+    - os: linux
+      dist: xenial
+      compiler: clang
+    - os: linux
+      dist: bionic
+      compiler: gcc
+    - os: linux
+      dist: bionic
+      compiler: clang
+
 language: cpp
 
-compiler:
-        - clang
-        - gcc
+addons:
+  apt:
+    packages:
+      - ninja-build
 
 script:
-        - mkdir -p build
-        - cd build
-        - cmake ..
-        - cmake --build .
-        - ctest
+  - mkdir -p build
+  - cd build
+  - cmake -G Ninja ..
+  - cmake --build .
+  - ctest
