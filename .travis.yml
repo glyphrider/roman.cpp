@@ -1,16 +1,17 @@
+os: linux
+
 language: cpp
 
-dist:
-	- xenial
-	- bionic
+dist: bionic
 
 compiler:
   - clang
   - gcc
 
 addons:
-	apt:
-		packages: ninja-build
+  apt:
+    packages:
+      - ninja-build
 
 script:
   - mkdir -p build
