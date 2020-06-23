@@ -2,14 +2,16 @@ jobs:
   include:
     - os: linux
       dist: xenial
-      compiler:
-        - clang
-        - gcc
+      compiler: gcc
+    - os: linux
+      dist: xenial
+      compiler: clang
     - os: linux
       dist: bionic
-      compiler:
-        - clang
-        - gcc
+      compiler: gcc
+    - os: linux
+      dist: bionic
+      compiler: clang
 
 language: cpp
 
