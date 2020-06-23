@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 project(Roman)
 enable_testing()
 
+set(CMAKE_CXX_STANDARD 11)
+
 # CMake Magic for GoogleTest
 #
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
@@ -34,8 +36,6 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
 if (CMAKE_VERSION VERSION_LESS 2.8.11)
   include_directories("${gtest_SOURCE_DIR}/include")
 endif()
-
-set(CMAKE_CXX_STANDARD 11)
 
 add_executable(roman_tests roman.cc test.cc)
 target_link_libraries(roman_tests gtest)
