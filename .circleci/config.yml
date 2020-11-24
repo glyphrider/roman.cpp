@@ -29,7 +29,7 @@ jobs:
           name: Execute Tests
           command: |
             cd clang
-            ctest
+            ./roman_tests --gtest_output=xml
       - store_test_results:
           path: clang
 
