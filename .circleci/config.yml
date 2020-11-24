@@ -1,0 +1,43 @@
+version: 2.1
+executors:
+  exectr:
+    docker:
+      - image: YourGitHubName/YourDockerRepoName:latest
+
+jobs:
+  build:
+    executor: exectr
+    steps:
+      - checkout
+      - run:
+          name: Setup cmake and build artifacts
+          command: |
+            mkdir clang
+            cd clang
+            env CC=clang CXX=clang++ cmake -G Ninja ..
+            ninja
+      - persist_to_workspace:
+          root: .
+          paths: clang
+
+  test:
+    executor: exectr
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Execute Tests
+          command: |
+            cd clang
+            ctest
+      - store_test_results:
+          path: clang
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
