@@ -5,7 +5,7 @@ executors:
       - image: glyphrider/roman.cpp:latest
 
 jobs:
-  build:
+  build-clang:
     executor: exectr
     steps:
       - checkout
@@ -20,7 +20,22 @@ jobs:
           root: .
           paths: clang
 
-  test:
+  build-gcc:
+    executor: exectr
+    steps:
+      - checkout
+      - run:
+          name: Setup cmake and build artifacts
+          command: |
+            mkdir gcc
+            cd gcc
+            env CC=gcc CXX=g++ cmake -G Ninja ..
+            ninja
+      - persist_to_workspace:
+          root: .
+          paths: gcc
+
+  test-clang:
     executor: exectr
     steps:
       - attach_workspace:
@@ -33,11 +48,28 @@ jobs:
       - store_test_results:
           path: clang
 
+  test-gcc:
+    executor: exectr
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Execute Tests
+          command: |
+            cd gcc
+            ./roman_tests --gtest_output=xml
+      - store_test_results:
+          path: gcc
+
 workflows:
   version: 2
   build-and-test:
     jobs:
-      - build
-      - test:
+      - build-clang
+      - build-gcc
+      - test-clang:
           requires:
-            - build
+            - build-clang
+      - test-gcc:
+          requires:
+            - build-gcc
