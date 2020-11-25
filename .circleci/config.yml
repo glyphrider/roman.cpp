@@ -2,7 +2,7 @@ version: 2.1
 executors:
   exectr:
     docker:
-      - image: glyphrider/cmake-clang.docker:latest
+      - image: glyphrider/cpp:latest
 
 jobs:
   build-clang:
