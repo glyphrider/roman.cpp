@@ -1,6 +1,6 @@
 # Roman Numerals
 
-[![Build Status](https://travis-ci.org/glyphrider/roman.cpp.svg?branch=master)](https://travis-ci.org/glyphrider/roman.cpp)
+[![Travis-CI Build Status](https://travis-ci.com/glyphrider/roman.cpp.svg?branch=master)](https://travis-ci.com/glyphrider/roman.cpp)
 
 ## Building the New Way (cmake)
 
