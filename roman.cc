@@ -1,72 +1,76 @@
 #include "roman.h"
 
-Roman::Mapping::Mapping(int n, const std::string& s) : StdPair(n,s)
+Roman::Mapping::Mapping(int n, const std::string &s) : StdPair(n, s)
 {
 }
 
-bool Roman::Mapping::should_recurse(int n) const
+bool Roman::Mapping::can_fit_into(int n) const
 {
   return n >= first;
 }
 
-bool Roman::Mapping::should_recurse(const std::string& s) const
+bool Roman::Mapping::matches_beginning_of(const std::string &s) const
 {
-  return 0 == s.compare(0,second.size(),second);
+  return 0 == s.compare(0, second.size(), second);
 }
 
-const Roman::Table& Roman::table() const
+const Roman::Table &Roman::table() const
 {
-  static Roman::Table _static = 
-    {
-     {1000,"M"},
-     {900,"CM"},
-     {500,"D"},
-     {400,"CD"},
-     {100,"C"},
-     {90,"XC"},
-     {50,"L"},
-     {40,"XL"},
-     {10,"X"},
-     {9,"IX"},
-     {5,"V"},
-     {4,"IV"},
-     {1,"I"}
-    };
+  static Roman::Table _static =
+      {
+          {1000, "M"},
+          {900, "CM"},
+          {500, "D"},
+          {400, "CD"},
+          {100, "C"},
+          {90, "XC"},
+          {50, "L"},
+          {40, "XL"},
+          {10, "X"},
+          {9, "IX"},
+          {5, "V"},
+          {4, "IV"},
+          {1, "I"}};
   return _static;
 }
 
-std::string Roman::to_roman(int n, const std::string& s) const
+std::string Roman::to_roman(int n, const std::string &s, Roman::Table::const_iterator it, const Roman::Table::const_iterator end) const
 {
-  for(const Mapping& t:table())
+  for( ; it != end; it++)
+  {
+    const Mapping &t = *it;
+    if (t.can_fit_into(n))
     {
-      if(t.should_recurse(n))
-	{
-	  return to_roman(n-t.first,s+t.second);
-	}
+      return to_roman(n - t.first, s + t.second, it, end);
     }
+  }
   return s;
 }
 
-int Roman::from_roman(const std::string& s, int n) const
+int Roman::from_roman(const std::string &s, int n, Roman::Table::const_iterator it, const Roman::Table::const_iterator end) const
 {
-  for(const Mapping& t:table())
+  for( ; it != end; it++)
+  {
+    const Mapping &t = *it;
+    if (t.matches_beginning_of(s))
     {
-      if(t.should_recurse(s))
-	{
-	  return from_roman(s.substr(t.second.size()),n+t.first);
-	}
+      return from_roman(s.substr(t.second.size()), n + t.first,it,end);
     }
+  }
   return n;
 }
 
 std::string Roman::to_s(int n) const
 {
-  return to_roman(n,empty_string_literal);
+  const Roman::Table &t = table();
+  return to_roman(n, empty_string_literal, t.begin(), t.end());
 }
 
-int Roman::to_i(const std::string& s) const
+int Roman::to_i(const std::string &s) const
 {
-  return from_roman(s,0);
+  const Roman::Table &t = table();
+  return from_roman(s, starting_value, t.begin(), t.end());
 }
 
-const char * const Roman::empty_string_literal = "";
+const char *const Roman::empty_string_literal = "";
+const int Roman::starting_value = 0;

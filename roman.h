@@ -15,15 +15,16 @@ protected:
   class Mapping : public StdPair {
   public:
     Mapping(int n, const std::string& s);
-    bool should_recurse(int n) const;
-    bool should_recurse(const std::string& s) const;
+    bool can_fit_into(int n) const;
+    bool matches_beginning_of(const std::string& s) const;
   };
   using Table = std::list<Mapping>;
   const Table& table() const;
-  std::string to_roman(int n, const std::string& s) const;
-  int from_roman(const std::string& s, int n) const;
+  std::string to_roman(int n, const std::string& s, Table::const_iterator it, const Table::const_iterator end) const;
+  int from_roman(const std::string& s, int n, Table::const_iterator it, const Table::const_iterator end) const;
 
   static const char * const empty_string_literal;
+  static const int starting_value;
 };
 
 #endif
