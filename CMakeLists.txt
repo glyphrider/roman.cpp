@@ -33,5 +33,4 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
 add_executable(roman_tests roman.cc test.cc)
 target_link_libraries(roman_tests gtest)
 include(GoogleTest)
-#add_test(Name roman_tests COMMAND roman_tests)
 gtest_discover_tests(roman_tests)
