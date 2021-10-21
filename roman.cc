@@ -4,12 +4,12 @@ Roman::Mapping::Mapping(int n, const std::string &s) : StdPair(n, s)
 {
 }
 
-bool Roman::Mapping::can_fit_into(int n) const
+bool Roman::Mapping::fits(int n) const
 {
   return n >= first;
 }
 
-bool Roman::Mapping::matches_beginning_of(const std::string &s) const
+bool Roman::Mapping::fits(const std::string &s) const
 {
   return 0 == s.compare(0, second.size(), second);
 }
@@ -39,7 +39,7 @@ std::string Roman::to_roman(int n, const std::string &s, Roman::Table::const_ite
   for( ; it != end; it++)
   {
     const Mapping &t = *it;
-    if (t.can_fit_into(n))
+    if (t.fits(n))
     {
       return to_roman(n - t.first, s + t.second, it, end);
     }
@@ -52,7 +52,7 @@ int Roman::from_roman(const std::string &s, int n, Roman::Table::const_iterator 
   for( ; it != end; it++)
   {
     const Mapping &t = *it;
-    if (t.matches_beginning_of(s))
+    if (t.fits(s))
     {
       return from_roman(s.substr(t.second.size()), n + t.first,it,end);
     }

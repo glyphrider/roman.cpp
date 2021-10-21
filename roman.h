@@ -16,8 +16,8 @@ protected:
   class Mapping : public StdPair {
   public:
     Mapping(int n, const std::string& s);
-    bool can_fit_into(int n) const;
-    bool matches_beginning_of(const std::string& s) const;
+    bool fits(int n) const;
+    bool fits(const std::string& s) const;
   };
   using Table = std::list<Mapping>;
   const Table& table() const;
