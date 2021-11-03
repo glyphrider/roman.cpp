@@ -37,7 +37,7 @@ TEST_P(RomanSuite,ToArabic)
 // This results in 96 tests (2x because of to and from)
 //
 INSTANTIATE_TEST_SUITE_P(StockTestCases,RomanSuite,testing::Values(
-	std::tuple<int,std::string>(0,""),
+	std::tuple<int,std::string>(0,""), // this is a questionable test
 	std::tuple<int,std::string>(1,"I"),
 	std::tuple<int,std::string>(2, "II"),
 	std::tuple<int,std::string>(3, "III"),
@@ -97,6 +97,7 @@ TEST_F(RomanSuite, TestInvalidRomanString)
 		// we don't really care what is thrown,
 		// but we do want _something_ to be thrown.
 		// if we start to care, then we change this test!
+		// what should we do with invalid input???
 	}
 }
 
