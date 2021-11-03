@@ -13,7 +13,7 @@ public:
 //
 // A parameterized test to evaluate the arabic to roman path
 //
-TEST_P(RomanSuite,FromArabic)
+TEST_P(RomanSuite,ToRoman)
 {
   int arabic;
   std::string roman;
@@ -36,8 +36,8 @@ TEST_P(RomanSuite,ToArabic)
 // The *standard* 48 test cases from our javascript implementation
 // This results in 96 tests (2x because of to and from)
 //
-INSTANTIATE_TEST_SUITE_P(TestCases,RomanSuite,testing::Values(
-	// std::tuple<int,std::string>(0,""),
+INSTANTIATE_TEST_SUITE_P(StockTestCases,RomanSuite,testing::Values(
+	std::tuple<int,std::string>(0,""),
 	std::tuple<int,std::string>(1,"I"),
 	std::tuple<int,std::string>(2, "II"),
 	std::tuple<int,std::string>(3, "III"),
@@ -87,6 +87,18 @@ INSTANTIATE_TEST_SUITE_P(TestCases,RomanSuite,testing::Values(
 	std::tuple<int,std::string>(1001, "MI"),
 	std::tuple<int,std::string>(1968, "MCMLXVIII")
 ));
+
+TEST_F(RomanSuite, TestInvalidRomanString)
+{
+	try {
+		r.to_i("IM");
+		FAIL() << "Test case should throw exception";
+	} catch(...) {
+		// we don't really care what is thrown,
+		// but we do want _something_ to be thrown.
+		// if we start to care, then we change this test!
+	}
+}
 
 //
 // GoogleTest boilerplate launch

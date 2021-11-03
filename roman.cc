@@ -49,6 +49,7 @@ std::string Roman::to_roman(int n, const std::string &s, Roman::Table::const_ite
 
 int Roman::from_roman(const std::string &s, int n, Roman::Table::const_iterator it, const Roman::Table::const_iterator end) const
 {
+  if(s.empty()) return n;
   for( ; it != end; it++)
   {
     const Mapping &t = *it;
@@ -57,7 +58,7 @@ int Roman::from_roman(const std::string &s, int n, Roman::Table::const_iterator 
       return from_roman(s.substr(t.second.size()), n + t.first,it,end);
     }
   }
-  return n;
+  throw n;
 }
 
 std::string Roman::to_s(int n) const
