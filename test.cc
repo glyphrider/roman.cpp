@@ -101,6 +101,19 @@ TEST_F(RomanSuite, TestInvalidRomanString)
 	}
 }
 
+TEST_F(RomanSuite, TestInvalidArabicNumber)
+{
+	try {
+		r.to_s(-1);
+		FAIL() << "Test case should throw exception";
+	} catch(...) {
+		// we don't really care what is thrown,
+		// but we do want _something_ to be thrown.
+		// if we start to care, then we change this test!
+		// what should we do with invalid input???
+	}
+}
+
 //
 // GoogleTest boilerplate launch
 //
