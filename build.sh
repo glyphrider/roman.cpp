@@ -1,12 +1,11 @@
 #!/bin/env bash
 
-pushd $(dirname $0)
+# todo: put build into a variable (e.g. CMAKE_GENERATOR)
 
-rm -rf build
-mkdir build
-cd build
-cmake -G ${CMAKE_GENERATOR:-"Unix Makefiles"} ..
-cmake --build .
-ctest
+rm -rfv ${BUILD_DIRECTORY:="build"}
+mkdir -pv ${BUILD_DIRECTORY}
 
-popd
+cmake -G ${CMAKE_GENERATOR:="Unix Makefiles"} -B${BUILD_DIRECTORY}
+cmake --build ${BUILD_DIRECTORY}
+
+${BUILD_DIRECTORY}/roman_tests

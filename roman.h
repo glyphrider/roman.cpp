@@ -16,8 +16,12 @@ protected:
   class Mapping : public StdPair {
   public:
     Mapping(int n, const std::string& s);
-    bool fits(int n) const;
-    bool fits(const std::string& s) const;
+    bool canReduce(int n) const;
+    bool canReduce(const std::string& s) const;
+    int reduce(int n) const;
+    std::string reduce(const std::string& s) const;
+    int apply(int n) const;
+    std::string apply(const std::string& s) const;
   };
   using Table = std::list<Mapping>;
   const Table& table() const;

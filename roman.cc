@@ -4,14 +4,33 @@ Roman::Mapping::Mapping(int n, const std::string &s) : StdPair(n, s)
 {
 }
 
-bool Roman::Mapping::fits(int n) const
+bool Roman::Mapping::canReduce(int n) const
 {
   return n >= first;
 }
 
-bool Roman::Mapping::fits(const std::string &s) const
+bool Roman::Mapping::canReduce(const std::string &s) const
 {
   return 0 == s.compare(0, second.size(), second);
+}
+
+int Roman::Mapping::reduce(int n) const
+{
+  return n - first;
+}
+
+std::string Roman::Mapping::reduce(const std::string& s) const
+{
+  return s.substr(second.size());
+}
+
+int Roman::Mapping::apply(int n) const
+{
+  return n + first;
+}
+std::string Roman::Mapping::apply(const std::string& s) const
+{
+  return s + second;
 }
 
 const Roman::Table &Roman::table() const
@@ -39,9 +58,9 @@ std::string Roman::to_roman(int n, const std::string &s, Roman::Table::const_ite
   for( ; it != end; it++)
   {
     const Mapping &t = *it;
-    if (t.fits(n))
+    if (t.canReduce(n))
     {
-      return to_roman(n - t.first, s + t.second, it, end);
+      return to_roman(t.reduce(n), t.apply(s), it, end);
     }
   }
   return s;
@@ -53,9 +72,9 @@ int Roman::from_roman(const std::string &s, int n, Roman::Table::const_iterator 
   for( ; it != end; it++)
   {
     const Mapping &t = *it;
-    if (t.fits(s))
+    if (t.canReduce(s))
     {
-      return from_roman(s.substr(t.second.size()), n + t.first,it,end);
+      return from_roman(t.reduce(s), t.apply(n),it,end);
     }
   }
   throw n;
