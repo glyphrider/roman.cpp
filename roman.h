@@ -1,7 +1,6 @@
 #ifndef __roman_h__
 #define __roman_h__
 
-#include <utility>
 #include <list>
 #include <string>
 
@@ -12,9 +11,10 @@ class Roman {
   std::string to_s(int n) const;
   int to_i(const std::string& s) const;
 protected:
-  using StdPair = std::pair<int,std::string>;
-  class Mapping : public StdPair {
+  class Mapping {
   public:
+    int value;
+    std::string symbol;
     Mapping(int n, const std::string& s);
     bool canReduce(int n) const;
     bool canReduce(const std::string& s) const;

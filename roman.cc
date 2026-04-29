@@ -1,36 +1,21 @@
 #include "roman.h"
+#include <stdexcept>
 
-Roman::Mapping::Mapping(int n, const std::string &s) : StdPair(n, s)
-{
+Roman::Mapping::Mapping(int n, const std::string &s) : value(n), symbol(s) {}
+
+bool Roman::Mapping::canReduce(int n) const { return n >= value; }
+bool Roman::Mapping::canReduce(const std::string &s) const {
+  return s.compare(0, symbol.size(), symbol) == 0;
 }
 
-bool Roman::Mapping::canReduce(int n) const
-{
-  return n >= first && first > 0;
+int Roman::Mapping::reduce(int n) const { return n - value; }
+std::string Roman::Mapping::reduce(const std::string &s) const {
+  return s.substr(symbol.size());
 }
 
-bool Roman::Mapping::canReduce(const std::string &s) const
-{
-  return 0 == s.compare(0, second.size(), second);
-}
-
-int Roman::Mapping::reduce(int n) const
-{
-  return n - first;
-}
-
-std::string Roman::Mapping::reduce(const std::string& s) const
-{
-  return s.substr(second.size());
-}
-
-int Roman::Mapping::apply(int n) const
-{
-  return n + first;
-}
-std::string Roman::Mapping::apply(const std::string& s) const
-{
-  return s + second;
+int Roman::Mapping::apply(int n) const { return n + value; }
+std::string Roman::Mapping::apply(const std::string &s) const {
+  return s + symbol;
 }
 
 const Roman::Table &Roman::table() const
@@ -63,7 +48,7 @@ std::string Roman::to_roman(int n, const std::string &s, Roman::Table::const_ite
       return to_roman(it->reduce(n), it->apply(s), it, end);
     }
   }
-  throw s;
+  throw std::invalid_argument("invalid arabic: " + std::to_string(n));
 }
 
 int Roman::from_roman(const std::string &s, int n, Roman::Table::const_iterator it, const Roman::Table::const_iterator end) const
@@ -76,7 +61,7 @@ int Roman::from_roman(const std::string &s, int n, Roman::Table::const_iterator 
       return from_roman(it->reduce(s), it->apply(n),it,end);
     }
   }
-  throw n;
+  throw std::invalid_argument("invalid roman: " + s);
 }
 
 std::string Roman::to_s(int n) const
